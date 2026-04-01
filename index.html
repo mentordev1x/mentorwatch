@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MentorWatch – TikTok Hikaye Görüntüleyici</title>
+  <meta name="description" content="TikTok hikayelerini anonim olarak ücretsiz görüntüleyin ve indirin. Kayıt gerekmez." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="container header-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <defs>
+              <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ee1d52"/>
+                <stop offset="100%" stop-color="#69c9d0"/>
+              </linearGradient>
+            </defs>
+            <circle cx="16" cy="16" r="16" fill="url(#logoGrad)"/>
+            <path d="M22 10.5a4.5 4.5 0 01-4.5-4.5v9A4.5 4.5 0 1113 10.5v1.06a3.44 3.44 0 103.44 3.44V6H19A3.5 3.5 0 0022 9.5v1z" fill="white"/>
+          </svg>
+        </span>
+        <span class="logo-text">MentorWatch</span>
+      </a>
+
+      <div class="header-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Tema değiştir">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO / MAIN TOOL -->
+  <main>
+    <section class="hero" id="viewer">
+      <div class="hero-bg">
+        <div class="hero-blob blob-1"></div>
+        <div class="hero-blob blob-2"></div>
+        <div class="hero-blob blob-3"></div>
+      </div>
+      <div class="container">
+        <div class="hero-content">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            Anonim &amp; Ücretsiz
+          </div>
+          <h1 class="hero-title">TikTok Hikaye <span class="gradient-text">Görüntüleyici</span></h1>
+          <p class="hero-subtitle">
+            Hesaba giriş yapmadan, iz bırakmadan TikTok hikayelerini görüntüleyin ve indirin.
+            <strong>Kimse görmez.</strong>
+          </p>
+
+          <!-- SEARCH BOX -->
+          <div class="search-card" id="search-section">
+            <div class="search-box">
+              <div class="search-input-wrap">
+                <span class="search-at">@</span>
+                <input
+                  type="text"
+                  id="usernameInput"
+                  class="search-input"
+                  placeholder="tiktok kullanıcı adı girin"
+                  autocomplete="off"
+                  spellcheck="false"
+                />
+                <button class="paste-btn" id="pasteBtn" title="Panodan yapıştır">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/>
+                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+                  </svg>
+                  Yapıştır
+                </button>
+              </div>
+              <button class="search-btn" id="searchBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+                Hikayeleri Yükle
+              </button>
+            </div>
+            <div class="search-hints">
+              <span class="hint-label">Örnek:</span>
+              <button class="hint-chip" data-user="cristiano">@cristiano</button>
+              <button class="hint-chip" data-user="mrbeast">@mrbeast</button>
+              <button class="hint-chip" data-user="charlidamelio">@charlidamelio</button>
+            </div>
+          </div>
+
+          <!-- FEATURE PILLS -->
+          <div class="features-row">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <span>100% Anonim</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </div>
+              <span>HD İndirme</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <span>Hızlı &amp; Kolay</span>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <span>Ücretsiz</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS SECTION -->
+    <section class="results-section" id="resultsSection" style="display:none;">
+      <div class="container">
+        <!-- Profile Card -->
+        <div class="profile-card" id="profileCard">
+          <div class="profile-avatar-wrap">
+            <img id="profileAvatar" src="" alt="Profil fotoğrafı" class="profile-avatar" />
+            <div class="avatar-ring"></div>
+          </div>
+          <div class="profile-info">
+            <h2 class="profile-name" id="profileName">-</h2>
+            <p class="profile-username" id="profileUsername">@-</p>
+            <div class="profile-stats">
+              <div class="stat">
+                <span class="stat-value" id="statFollowers">0</span>
+                <span class="stat-label">Takipçi</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value" id="statFollowing">0</span>
+                <span class="stat-label">Takip</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value" id="statLikes">0</span>
+                <span class="stat-label">Beğeni</span>
+              </div>
+            </div>
+          </div>
+          <button class="back-btn" id="backBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            Geri Dön
+          </button>
+        </div>
+
+        <!-- Stories Grid -->
+        <div class="stories-header">
+          <h3 class="stories-title" id="storiesTitle">Hikayeler</h3>
+          <button class="download-all-btn" id="downloadAllBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Tümünü İndir
+          </button>
+        </div>
+
+        <div class="stories-grid" id="storiesGrid"></div>
+
+        <div class="empty-state" id="emptyState" style="display:none;">
+          <div class="empty-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+          </div>
+          <h3>Hikaye bulunamadı</h3>
+          <p>Bu kullanıcının şu an aktif hikayesi yok veya hesap gizli olabilir.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOADING -->
+    <div class="loading-overlay" id="loadingOverlay" style="display:none;">
+      <div class="loading-card">
+        <div class="spinner">
+          <div class="spinner-ring"></div>
+          <div class="spinner-ring spinner-ring-2"></div>
+          <div class="spinner-tik">
+            <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+              <path d="M22 10.5a4.5 4.5 0 01-4.5-4.5v9A4.5 4.5 0 1113 10.5v1.06a3.44 3.44 0 103.44 3.44V6H19A3.5 3.5 0 0022 9.5v1z" fill="url(#loadGrad)"/>
+              <defs><linearGradient id="loadGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ee1d52"/><stop offset="100%" stop-color="#69c9d0"/></linearGradient></defs>
+            </svg>
+          </div>
+        </div>
+        <p class="loading-text">Hikayeler yükleniyor<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
+      </div>
+    </div>
+  </main>
+
+  <!-- STORY MODAL (Lightbox) -->
+  <div class="story-modal" id="storyModal" style="display:none;" role="dialog" aria-modal="true" aria-label="Hikaye görüntüleyici">
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="Kapat">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <button class="modal-prev" id="modalPrev" aria-label="Önceki">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="modal-media-wrap">
+        <img id="modalImg" src="" alt="Hikaye" style="display:none;" />
+        <video id="modalVideo" controls style="display:none;" playsinline></video>
+      </div>
+      <button class="modal-next" id="modalNext" aria-label="Sonraki">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <div class="modal-info">
+        <span id="modalCounter">1 / 1</span>
+        <button class="modal-download-btn" id="modalDownloadBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          İndir
+        </button>
+      </div>
+      <div class="story-progress-bar" id="storyProgressBar">
+        <div class="story-progress-fill" id="storyProgressFill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-simple">
+      <a href="#" class="logo logo-sm">
+        <span class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="16" fill="url(#footerLogoGrad)"/>
+            <path d="M22 10.5a4.5 4.5 0 01-4.5-4.5v9A4.5 4.5 0 1113 10.5v1.06a3.44 3.44 0 103.44 3.44V6H19A3.5 3.5 0 0022 9.5v1z" fill="white"/>
+            <defs><linearGradient id="footerLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ee1d52"/><stop offset="100%" stop-color="#69c9d0"/></linearGradient></defs>
+          </svg>
+        </span>
+        <span class="logo-text">MentorWatch</span>
+      </a>
+      <p class="footer-copy">© 2026 MentorWatch — TikTok ile bağlantılı değiliz.</p>
+    </div>
+  </footer>
+
+  <!-- API Key Modal -->
+  <div class="api-modal" id="apiModal" style="display:none;">
+    <div class="modal-overlay" id="apiModalOverlay"></div>
+    <div class="api-modal-content">
+      <div class="api-modal-header">
+        <div class="api-modal-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
+          </svg>
+        </div>
+        <h3>RapidAPI Anahtarı</h3>
+        <p>TikTok hikayelerini görüntülemek için RapidAPI anahtarınızı girin.</p>
+      </div>
+      <div class="api-modal-body">
+        <div class="api-steps">
+          <div class="api-step">
+            <span class="api-step-num">1</span>
+            <span>Ücretsiz kayıt için <a href="https://rapidapi.com" target="_blank" rel="noopener">rapidapi.com</a> adresine gidin</span>
+          </div>
+          <div class="api-step">
+            <span class="api-step-num">2</span>
+            <span><a href="https://rapidapi.com/tikwm-tikwm-default/api/tiktok-scraper7" target="_blank" rel="noopener">TikTok Scraper7 API</a>'ye abone olun (ücretsiz plan mevcut)</span>
+          </div>
+          <div class="api-step">
+            <span class="api-step-num">3</span>
+            <span>API anahtarınızı kopyalayıp aşağıya yapıştırın</span>
+          </div>
+        </div>
+        <div class="api-input-wrap">
+          <input type="password" id="apiKeyInput" class="api-key-input" placeholder="API anahtarınızı girin..." autocomplete="off"/>
+          <button class="api-show-btn" id="apiShowBtn" title="Göster/Gizle">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="eyeIcon">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+        <label class="api-remember">
+          <input type="checkbox" id="rememberKey" checked/>
+          <span>API anahtarımı hatırla (tarayıcıda sakla)</span>
+        </label>
+      </div>
+      <div class="api-modal-footer">
+        <button class="api-cancel-btn" id="apiCancelBtn">İptal</button>
+        <button class="api-save-btn" id="apiSaveBtn">Kaydet &amp; Devam Et</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
