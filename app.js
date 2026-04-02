@@ -181,9 +181,10 @@ function parseStories(data) {
     const isVideo = !!(item.play || item.hdplay || item.video?.play_addr?.url_list?.length
       || item.video_url || item.video_play_url);
 
-    const thumb = item.cover
-      || item.origin_cover
+    const thumb = item.origin_cover
       || item.dynamic_cover
+      || item.cover
+      || item.video?.origin_cover?.url_list?.[0]
       || item.video?.cover?.url_list?.[0]
       || item.image_url
       || item.thumbnail_url
@@ -294,7 +295,7 @@ function createStoryCard(story, idx) {
   div.className = 'story-item';
   div.setAttribute('data-idx', idx);
 
-  const thumbSrc = story.thumb || story.url;
+  const thumbSrc = story.url || story.thumb;
   const isVideo = story.type === 'video';
 
   div.innerHTML = `
