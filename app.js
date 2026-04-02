@@ -181,10 +181,9 @@ function parseStories(data) {
     const isVideo = !!(item.play || item.hdplay || item.video?.play_addr?.url_list?.length
       || item.video_url || item.video_play_url);
 
-    const thumb = item.origin_cover
+    const thumb = item.cover
+      || item.origin_cover
       || item.dynamic_cover
-      || item.cover
-      || item.video?.origin_cover?.url_list?.[0]
       || item.video?.cover?.url_list?.[0]
       || item.image_url
       || item.thumbnail_url
@@ -242,12 +241,30 @@ function showResults(userInfo, stories) {
     || user.avatar
     || '';
 
+  const avatarFull = user.avatarLarger
+    || user.avatarMedium
+    || user.avatar_medium?.url_list?.[0]
+    || user.avatarThumb
+    || avatarUrl;
+  state.avatarFull = avatarFull;
+
   if (avatarUrl) {
     profileAvatar.src = avatarUrl;
     profileAvatar.style.display = 'block';
     profileAvatar.onerror = () => { profileAvatar.src = generatePlaceholderAvatar(nickname); };
   } else {
     profileAvatar.src = generatePlaceholderAvatar(nickname);
+  }
+
+  const viewProfileBtn = el('viewProfileBtn');
+  if (viewProfileBtn) {
+    viewProfileBtn.onclick = () => {
+      if (state.avatarFull) {
+        window.open(state.avatarFull, '_blank', 'noopener');
+      } else {
+        showToast('Profil fotoğrafı bulunamadı.', 'error');
+      }
+    };
   }
 
   storiesGrid.innerHTML = '';
@@ -295,8 +312,8 @@ function createStoryCard(story, idx) {
   div.className = 'story-item';
   div.setAttribute('data-idx', idx);
 
-  const thumbSrc = story.url || story.thumb;
   const isVideo = story.type === 'video';
+  const thumbSrc = isVideo ? (story.thumb || story.url) : (story.url || story.thumb);
 
   div.innerHTML = `
     ${thumbSrc ? `<img class="story-thumb" src="${thumbSrc}" alt="Hikaye ${idx+1}" loading="lazy" onerror="this.src='${generateGradientPlaceholder()}'"/>` : `<div class="story-thumb" style="background:var(--gradient);height:100%;"></div>`}
