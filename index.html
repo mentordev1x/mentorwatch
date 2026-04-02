@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MentorWatch – TikTok Hikaye Görüntüleyici</title>
-  <meta name="description" content="TikTok hikayelerini anonim olarak ücretsiz görüntüleyin ve indirin. Kayıt gerekmez." />
+  <title>MentorWatch MentorWatch – TikTok Hikaye Görüntüleyici</title>
+  <meta name="description" content="TikTok hikayelerini anonim olarak ücretsiz görüntüleyin ve indirin." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- HEADER -->
   <header class="header" id="header">
     <div class="container header-inner">
       <a href="#" class="logo">
         <span class="logo-icon">
-          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
             <defs>
               <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#ee1d52"/>
@@ -47,27 +46,15 @@
     </div>
   </header>
 
-  <!-- HERO / MAIN TOOL -->
   <main>
     <section class="hero" id="viewer">
-      <div class="hero-bg">
-        <div class="hero-blob blob-1"></div>
-        <div class="hero-blob blob-2"></div>
-        <div class="hero-blob blob-3"></div>
-      </div>
       <div class="container">
         <div class="hero-content">
-          <div class="badge">
-            <span class="badge-dot"></span>
-            Anonim &amp; Ücretsiz
-          </div>
           <h1 class="hero-title">TikTok Hikaye <span class="gradient-text">Görüntüleyici</span></h1>
           <p class="hero-subtitle">
-            Hesaba giriş yapmadan, iz bırakmadan TikTok hikayelerini görüntüleyin ve indirin.
-            <strong>Kimse görmez.</strong>
+            Hesaba giriş yapmadan TikTok hikayelerini görüntüleyin ve indirin.
           </p>
 
-          <!-- SEARCH BOX -->
           <div class="search-card" id="search-section">
             <div class="search-box">
               <div class="search-input-wrap">
@@ -76,7 +63,7 @@
                   type="text"
                   id="usernameInput"
                   class="search-input"
-                  placeholder="tiktok kullanıcı adı girin"
+                  placeholder="kullanıcı adı"
                   autocomplete="off"
                   spellcheck="false"
                 />
@@ -92,7 +79,7 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                   <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                 </svg>
-                Hikayeleri Yükle
+                Ara
               </button>
             </div>
             <div class="search-hints">
@@ -103,30 +90,21 @@
             </div>
           </div>
 
-          <!-- FEATURE PILLS -->
           <div class="features-row">
             <div class="feature-item">
-              <div class="feature-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </div>
-              <span>100% Anonim</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <span>Anonim</span>
             </div>
             <div class="feature-item">
-              <div class="feature-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
               <span>HD İndirme</span>
             </div>
             <div class="feature-item">
-              <div class="feature-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              </div>
-              <span>Hızlı &amp; Kolay</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span>Hızlı</span>
             </div>
             <div class="feature-item">
-              <div class="feature-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              </div>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
               <span>Ücretsiz</span>
             </div>
           </div>
@@ -134,14 +112,11 @@
       </div>
     </section>
 
-    <!-- RESULTS SECTION -->
     <section class="results-section" id="resultsSection" style="display:none;">
       <div class="container">
-        <!-- Profile Card -->
         <div class="profile-card" id="profileCard">
           <div class="profile-avatar-wrap">
-            <img id="profileAvatar" src="" alt="Profil fotoğrafı" class="profile-avatar" />
-            <div class="avatar-ring"></div>
+            <img id="profileAvatar" src="" alt="Profil" class="profile-avatar" />
           </div>
           <div class="profile-info">
             <h2 class="profile-name" id="profileName">-</h2>
@@ -167,7 +142,6 @@
           </button>
         </div>
 
-        <!-- Stories Grid -->
         <div class="stories-header">
           <h3 class="stories-title" id="storiesTitle">Hikayeler</h3>
           <button class="download-all-btn" id="downloadAllBtn">
@@ -180,7 +154,7 @@
 
         <div class="empty-state" id="emptyState" style="display:none;">
           <div class="empty-icon">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
           </div>
           <h3>Hikaye bulunamadı</h3>
           <p>Bu kullanıcının şu an aktif hikayesi yok veya hesap gizli olabilir.</p>
@@ -188,75 +162,27 @@
       </div>
     </section>
 
-    <!-- LOADING -->
     <div class="loading-overlay" id="loadingOverlay" style="display:none;">
       <div class="loading-card">
         <div class="spinner">
           <div class="spinner-ring"></div>
           <div class="spinner-ring spinner-ring-2"></div>
-          <div class="spinner-tik">
-            <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
-              <path d="M22 10.5a4.5 4.5 0 01-4.5-4.5v9A4.5 4.5 0 1113 10.5v1.06a3.44 3.44 0 103.44 3.44V6H19A3.5 3.5 0 0022 9.5v1z" fill="url(#loadGrad)"/>
-              <defs><linearGradient id="loadGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ee1d52"/><stop offset="100%" stop-color="#69c9d0"/></linearGradient></defs>
-            </svg>
-          </div>
         </div>
         <p class="loading-text">Hikayeler yükleniyor<span class="dots"><span>.</span><span>.</span><span>.</span></span></p>
       </div>
     </div>
   </main>
 
-  <!-- STORY MODAL (Lightbox) -->
-  <div class="story-modal" id="storyModal" style="display:none;" role="dialog" aria-modal="true" aria-label="Hikaye görüntüleyici">
-    <div class="modal-overlay" id="modalOverlay"></div>
-    <div class="modal-content">
-      <button class="modal-close" id="modalClose" aria-label="Kapat">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-      <button class="modal-prev" id="modalPrev" aria-label="Önceki">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <div class="modal-media-wrap">
-        <img id="modalImg" src="" alt="Hikaye" style="display:none;" />
-        <video id="modalVideo" controls style="display:none;" playsinline crossorigin="anonymous"></video>
-      </div>
-      <button class="modal-next" id="modalNext" aria-label="Sonraki">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
-      <div class="modal-info">
-        <span id="modalCounter">1 / 1</span>
-        <button class="modal-download-btn" id="modalDownloadBtn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          İndir
-        </button>
-      </div>
-      <div class="story-progress-bar" id="storyProgressBar">
-        <div class="story-progress-fill" id="storyProgressFill"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TOAST -->
   <div class="toast" id="toast"></div>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-simple">
       <a href="#" class="logo logo-sm">
-        <span class="logo-icon">
-          <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
-            <circle cx="16" cy="16" r="16" fill="url(#footerLogoGrad)"/>
-            <path d="M22 10.5a4.5 4.5 0 01-4.5-4.5v9A4.5 4.5 0 1113 10.5v1.06a3.44 3.44 0 103.44 3.44V6H19A3.5 3.5 0 0022 9.5v1z" fill="white"/>
-            <defs><linearGradient id="footerLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ee1d52"/><stop offset="100%" stop-color="#69c9d0"/></linearGradient></defs>
-          </svg>
-        </span>
         <span class="logo-text">MentorWatch</span>
       </a>
-      <p class="footer-copy">© 2026 MentorWatch — TikTok ile bağlantılı değiliz.</p>
+      <p class="footer-copy">© 2026 MentorWatch</p>
     </div>
   </footer>
-
-  <!-- API Key Modal removed – key is built-in -->
 
   <script src="app.js"></script>
 </body>
