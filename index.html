@@ -218,7 +218,7 @@
       </button>
       <div class="modal-media-wrap">
         <img id="modalImg" src="" alt="Hikaye" style="display:none;" />
-        <video id="modalVideo" controls style="display:none;" playsinline></video>
+        <video id="modalVideo" controls style="display:none;" playsinline crossorigin="anonymous"></video>
       </div>
       <button class="modal-next" id="modalNext" aria-label="Sonraki">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
@@ -256,53 +256,7 @@
     </div>
   </footer>
 
-  <!-- API Key Modal -->
-  <div class="api-modal" id="apiModal" style="display:none;">
-    <div class="modal-overlay" id="apiModalOverlay"></div>
-    <div class="api-modal-content">
-      <div class="api-modal-header">
-        <div class="api-modal-icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>
-          </svg>
-        </div>
-        <h3>RapidAPI Anahtarı</h3>
-        <p>TikTok hikayelerini görüntülemek için RapidAPI anahtarınızı girin.</p>
-      </div>
-      <div class="api-modal-body">
-        <div class="api-steps">
-          <div class="api-step">
-            <span class="api-step-num">1</span>
-            <span>Ücretsiz kayıt için <a href="https://rapidapi.com" target="_blank" rel="noopener">rapidapi.com</a> adresine gidin</span>
-          </div>
-          <div class="api-step">
-            <span class="api-step-num">2</span>
-            <span><a href="https://rapidapi.com/tikwm-tikwm-default/api/tiktok-scraper7" target="_blank" rel="noopener">TikTok Scraper7 API</a>'ye abone olun (ücretsiz plan mevcut)</span>
-          </div>
-          <div class="api-step">
-            <span class="api-step-num">3</span>
-            <span>API anahtarınızı kopyalayıp aşağıya yapıştırın</span>
-          </div>
-        </div>
-        <div class="api-input-wrap">
-          <input type="password" id="apiKeyInput" class="api-key-input" placeholder="API anahtarınızı girin..." autocomplete="off"/>
-          <button class="api-show-btn" id="apiShowBtn" title="Göster/Gizle">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="eyeIcon">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
-            </svg>
-          </button>
-        </div>
-        <label class="api-remember">
-          <input type="checkbox" id="rememberKey" checked/>
-          <span>API anahtarımı hatırla (tarayıcıda sakla)</span>
-        </label>
-      </div>
-      <div class="api-modal-footer">
-        <button class="api-cancel-btn" id="apiCancelBtn">İptal</button>
-        <button class="api-save-btn" id="apiSaveBtn">Kaydet &amp; Devam Et</button>
-      </div>
-    </div>
-  </div>
+  <!-- API Key Modal removed – key is built-in -->
 
   <script src="app.js"></script>
 </body>
