@@ -320,9 +320,29 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--text-muted);
   transition: background var(--transition), color var(--transition);
   border: 1px solid var(--border);
-  margin-left: auto;
 }
 .back-btn:hover { background: var(--text); color: var(--bg); }
+
+.profile-actions {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+.view-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 16px;
+  border-radius: var(--radius-xs);
+  background: var(--gradient);
+  font-size: .85rem;
+  font-weight: 500;
+  color: white;
+  transition: opacity var(--transition);
+  border: none;
+}
+.view-profile-btn:hover { opacity: 0.85; }
 
 .stories-header {
   display: flex;
