@@ -1,18 +1,20 @@
 /* ============================================================
-   StoryPeek – TikTok Story Viewer  |  app.js
-   Uses: RapidAPI → TikTok Scraper7 (tikwm endpoint)
+   MentorWatch – TikTok Story Viewer  |  app.js
    ============================================================ */
 
 'use strict';
 
-// ── State ──────────────────────────────────────────────────
+// ── State ──────────────────────────────────────────────
+const RAPIDAPI_KEY = 'cc945a3d43msh45c2e3b8e792458p102a43jsnd2f70d1ab92a';
+
 const state = {
-  apiKey: '',
+  apiKey: RAPIDAPI_KEY,
   currentUser: null,
   stories: [],
   modalIndex: 0,
   theme: 'light',
 };
+
 
 // ── DOM helpers ────────────────────────────────────────────
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
@@ -51,13 +53,7 @@ const modalDownloadBtn= el('modalDownloadBtn');
 const modalOverlay    = el('modalOverlay');
 const progressFill    = el('storyProgressFill');
 
-// API modal
-const apiModal        = el('apiModal');
-const apiKeyInput     = el('apiKeyInput');
-const apiSaveBtn      = el('apiSaveBtn');
-const apiCancelBtn    = el('apiCancelBtn');
-const apiShowBtn      = el('apiShowBtn');
-const rememberKey     = el('rememberKey');
+// API modal – removed (key is built-in)
 
 // Theme
 const themeToggle = el('themeToggle');
@@ -70,9 +66,8 @@ function init() {
   const savedTheme = localStorage.getItem('sp_theme') || 'light';
   setTheme(savedTheme);
 
-  // API Key
-  const savedKey = localStorage.getItem('sp_apikey') || '';
-  if (savedKey) state.apiKey = savedKey;
+  // API Key is always the built-in key – no user entry needed
+  state.apiKey = RAPIDAPI_KEY;
 
   // Events
   themeToggle.addEventListener('click', () => setTheme(state.theme === 'light' ? 'dark' : 'light'));
@@ -93,16 +88,10 @@ function init() {
   // Modal
   modalClose.addEventListener('click', closeModal);
   modalOverlay.addEventListener('click', closeModal);
-  el('apiModalOverlay').addEventListener('click', closeApiModal);
   modalPrev.addEventListener('click', () => navigateModal(-1));
   modalNext.addEventListener('click', () => navigateModal(1));
   modalDownloadBtn.addEventListener('click', downloadCurrent);
   document.addEventListener('keydown', handleKeyboard);
-
-  // API modal
-  apiSaveBtn.addEventListener('click', saveApiKey);
-  apiCancelBtn.addEventListener('click', closeApiModal);
-  apiShowBtn.addEventListener('click', toggleApiKeyVisibility);
 }
 
 // ── Theme ──────────────────────────────────────────────────
@@ -131,14 +120,6 @@ async function handleSearch() {
     showToast('Lütfen bir kullanıcı adı girin.', 'error');
     return;
   }
-
-  if (!state.apiKey) {
-    openApiModal(() => {
-      if (state.apiKey) fetchStories(raw);
-    });
-    return;
-  }
-
   fetchStories(raw);
 }
 
@@ -489,16 +470,23 @@ function renderModal() {
 
   // Media
   modalVideo.pause();
+  modalVideo.removeAttribute('src');
+  modalVideo.load();
   if (story.type === 'video' && story.url) {
     modalImg.style.display   = 'none';
     modalVideo.style.display = 'block';
-    modalVideo.src = story.url;
-    modalVideo.play().catch(() => {});
+    modalVideo.crossOrigin   = 'anonymous';
+    modalVideo.src           = story.url;
+    modalVideo.load();
+    modalVideo.play().catch(() => {
+      // Autoplay blocked – video controls are shown, user can press play
+    });
   } else {
     modalVideo.style.display = 'none';
     modalImg.style.display   = 'block';
-    modalImg.src = story.url || story.thumb;
-    modalImg.alt = `Hikaye ${state.modalIndex + 1}`;
+    modalImg.crossOrigin     = 'anonymous';
+    modalImg.src             = story.url || story.thumb;
+    modalImg.alt             = `Hikaye ${state.modalIndex + 1}`;
   }
 }
 
@@ -551,37 +539,7 @@ async function downloadAll() {
   }
 }
 
-// ── API Key Modal ──────────────────────────────────────────
-let _apiCallback = null;
-
-function openApiModal(cb) {
-  _apiCallback = cb;
-  apiKeyInput.value = state.apiKey || '';
-  apiModal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  setTimeout(() => apiKeyInput.focus(), 100);
-}
-
-function closeApiModal() {
-  apiModal.style.display = 'none';
-  document.body.style.overflow = '';
-}
-
-function saveApiKey() {
-  const key = apiKeyInput.value.trim();
-  if (!key) { showToast('Lütfen API anahtarınızı girin.', 'error'); return; }
-  state.apiKey = key;
-  if (rememberKey.checked) {
-    localStorage.setItem('sp_apikey', key);
-  }
-  closeApiModal();
-  showToast('API anahtarı kaydedildi! ✓', 'success');
-  if (_apiCallback) { _apiCallback(); _apiCallback = null; }
-}
-
-function toggleApiKeyVisibility() {
-  apiKeyInput.type = apiKeyInput.type === 'password' ? 'text' : 'password';
-}
+// API Key Modal – removed (key is built-in)
 
 // ── Toast ──────────────────────────────────────────────────
 let _toastTimer;
