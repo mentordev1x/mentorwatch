@@ -1,27 +1,18 @@
-/* ============================================================
-   MentorWatch – TikTok Story Viewer  |  app.js
-   ============================================================ */
-
 'use strict';
 
-// ── State ──────────────────────────────────────────────
 const RAPIDAPI_KEY = 'cc945a3d43msh45c2e3b8e792458p102a43jsnd2f70d1ab92a';
 
 const state = {
   apiKey: RAPIDAPI_KEY,
   currentUser: null,
   stories: [],
-  modalIndex: 0,
   theme: 'light',
 };
 
-
-// ── DOM helpers ────────────────────────────────────────────
 const $ = (sel, ctx = document) => ctx.querySelector(sel);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 const el = id => document.getElementById(id);
 
-// ── Elements ───────────────────────────────────────────────
 const usernameInput   = el('usernameInput');
 const searchBtn       = el('searchBtn');
 const pasteBtn        = el('pasteBtn');
@@ -33,7 +24,6 @@ const backBtn         = el('backBtn');
 const downloadAllBtn  = el('downloadAllBtn');
 const storiesTitle    = el('storiesTitle');
 
-// Profile
 const profileAvatar   = el('profileAvatar');
 const profileName     = el('profileName');
 const profileUsername = el('profileUsername');
@@ -41,35 +31,14 @@ const statFollowers   = el('statFollowers');
 const statFollowing   = el('statFollowing');
 const statLikes       = el('statLikes');
 
-// Modal
-const storyModal      = el('storyModal');
-const modalImg        = el('modalImg');
-const modalVideo      = el('modalVideo');
-const modalClose      = el('modalClose');
-const modalPrev       = el('modalPrev');
-const modalNext       = el('modalNext');
-const modalCounter    = el('modalCounter');
-const modalDownloadBtn= el('modalDownloadBtn');
-const modalOverlay    = el('modalOverlay');
-const progressFill    = el('storyProgressFill');
-
-// API modal – removed (key is built-in)
-
-// Theme
 const themeToggle = el('themeToggle');
 const toast       = el('toast');
 
-
-// ── Init ───────────────────────────────────────────────────
 function init() {
-  // Theme
   const savedTheme = localStorage.getItem('sp_theme') || 'light';
   setTheme(savedTheme);
-
-  // API Key is always the built-in key – no user entry needed
   state.apiKey = RAPIDAPI_KEY;
 
-  // Events
   themeToggle.addEventListener('click', () => setTheme(state.theme === 'light' ? 'dark' : 'light'));
   usernameInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleSearch(); });
   searchBtn.addEventListener('click', handleSearch);
@@ -77,30 +46,19 @@ function init() {
   backBtn.addEventListener('click', showHero);
   downloadAllBtn.addEventListener('click', downloadAll);
 
-  // Hint chips
   $$('.hint-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       usernameInput.value = chip.dataset.user;
       usernameInput.focus();
     });
   });
-
-  // Modal
-  modalClose.addEventListener('click', closeModal);
-  modalOverlay.addEventListener('click', closeModal);
-  modalPrev.addEventListener('click', () => navigateModal(-1));
-  modalNext.addEventListener('click', () => navigateModal(1));
-  modalDownloadBtn.addEventListener('click', downloadCurrent);
-  document.addEventListener('keydown', handleKeyboard);
 }
 
-// ── Theme ──────────────────────────────────────────────────
 function setTheme(theme) {
   state.theme = theme;
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('sp_theme', theme);
 }
-
 
 async function handlePaste() {
   try {
@@ -112,7 +70,6 @@ async function handlePaste() {
   }
 }
 
-// ── Search ─────────────────────────────────────────────────
 async function handleSearch() {
   const raw = usernameInput.value.trim().replace(/^@/, '');
   if (!raw) {
@@ -130,7 +87,6 @@ function shakeInput() {
   }, { once: true });
 }
 
-// Add shake animation if not in CSS
 const shakeStyle = document.createElement('style');
 shakeStyle.textContent = `
   @keyframes shake {
@@ -143,29 +99,19 @@ shakeStyle.textContent = `
 `;
 document.head.appendChild(shakeStyle);
 
-// ── Fetch Stories ──────────────────────────────────────────
 async function fetchStories(username) {
   showLoading(true);
   searchBtn.disabled = true;
 
   try {
-    // First fetch user info (to get secUid + UserStoryStatus)
     const userInfo = await fetchUserInfo(username);
     if (!userInfo) throw new Error('Kullanıcı bulunamadı.');
 
     const user = userInfo.user || userInfo;
 
-    // Check if user has active stories (UserStoryStatus 1 = has story)
-    // 0 = no story, but we still try to fetch anyway to be sure
-    const storyStatus = user.UserStoryStatus ?? user.userStoryStatus ?? -1;
-    console.log('[StoryPeek] UserStoryStatus:', storyStatus, '| user:', user.uniqueId);
-
-    // Fetch stories by unique_id first, fallback to secUid if empty
     let stories = await fetchUserStories(username, null);
 
-    // If no stories and we have secUid, try that too
     if (stories.length === 0 && user.secUid) {
-      console.log('[StoryPeek] Retrying with secUid...');
       stories = await fetchUserStories(null, user.secUid);
     }
 
@@ -174,15 +120,13 @@ async function fetchStories(username) {
 
     showResults(userInfo, state.stories);
   } catch (err) {
-    console.error('[StoryPeek] Error:', err);
-    showToast(err.message || 'Bir hata oluştu. API anahtarınızı kontrol edin.', 'error');
+    showToast(err.message || 'Bir hata oluştu.', 'error');
   } finally {
     showLoading(false);
     searchBtn.disabled = false;
   }
 }
 
-// ── API Calls ──────────────────────────────────────────────
 async function fetchUserInfo(username) {
   const opts = {
     method: 'GET',
@@ -195,7 +139,7 @@ async function fetchUserInfo(username) {
   const url = `https://tiktok-scraper7.p.rapidapi.com/user/info?unique_id=${encodeURIComponent(username)}`;
   const res = await fetch(url, opts);
   if (!res.ok) {
-    if (res.status === 403 || res.status === 401) throw new Error('Geçersiz API anahtarı. Lütfen anahtarınızı kontrol edin.');
+    if (res.status === 403 || res.status === 401) throw new Error('Geçersiz API anahtarı.');
     throw new Error(`API hatası: ${res.status}`);
   }
   const data = await res.json();
@@ -209,7 +153,6 @@ async function fetchUserStories(username, secUid) {
     'x-rapidapi-key': state.apiKey,
   };
 
-  // Build query params: prefer secUid since it's more reliable
   let query;
   if (secUid) {
     query = `sec_uid=${encodeURIComponent(secUid)}`;
@@ -218,18 +161,13 @@ async function fetchUserStories(username, secUid) {
   }
 
   const url = `https://tiktok-scraper7.p.rapidapi.com/user/story?${query}`;
-  console.log('[StoryPeek] Story URL:', url);
-
   const res = await fetch(url, { method: 'GET', headers });
   if (!res.ok) throw new Error(`Hikayeler alınamadı: ${res.status}`);
   const data = await res.json();
-  console.log('[StoryPeek] Story raw response:', JSON.stringify(data).slice(0, 300));
   return parseStories(data);
 }
 
 function parseStories(data) {
-  // TikTok Scraper7 API: data.data.videos array
-  // Each item can be video or image story
   const rawData = data?.data || data;
   const items = rawData?.videos
     || rawData?.aweme_list
@@ -240,11 +178,9 @@ function parseStories(data) {
   if (!Array.isArray(items) || items.length === 0) return [];
 
   return items.map((item, idx) => {
-    // Video story fields (TikTok Scraper7)
     const isVideo = !!(item.play || item.hdplay || item.video?.play_addr?.url_list?.length
       || item.video_url || item.video_play_url);
 
-    // Thumbnail: try multiple possible field names
     const thumb = item.cover
       || item.origin_cover
       || item.dynamic_cover
@@ -254,7 +190,6 @@ function parseStories(data) {
       || item.image?.url_list?.[0]
       || '';
 
-    // Video URL
     const videoUrl = item.hdplay
       || item.play
       || item.wmplay
@@ -263,7 +198,6 @@ function parseStories(data) {
       || item.video_play_url
       || '';
 
-    // Image URL (for photo stories)
     const imageUrl = item.image_url
       || item.image?.url_list?.[0]
       || item.cover
@@ -279,19 +213,15 @@ function parseStories(data) {
   }).filter(s => s.url || s.thumb);
 }
 
-// ── Show Results ───────────────────────────────────────────
 function showResults(userInfo, stories) {
-  // TikTok Scraper7 API returns: data.user (camelCase) + data.stats (camelCase)
   const user  = userInfo.user  || userInfo;
   const stats = userInfo.stats || {};
 
-  // Profile info – API uses camelCase: uniqueId, nickname, followerCount etc.
-  const nickname  = user.nickname  || user.name        || user.unique_id  || user.uniqueId || 'İsimsiz';
-  const uniqueId  = user.uniqueId  || user.unique_id   || user.username   || '';
+  const nickname  = user.nickname  || user.name || user.unique_id || user.uniqueId || 'İsimsiz';
+  const uniqueId  = user.uniqueId  || user.unique_id || user.username || '';
   profileName.textContent     = nickname;
   profileUsername.textContent = '@' + uniqueId;
 
-  // Stats – API uses camelCase
   statFollowers.textContent = formatNum(
     stats.followerCount  || stats.follower_count  || stats.followers || 0
   );
@@ -302,7 +232,6 @@ function showResults(userInfo, stories) {
     stats.heartCount     || stats.heart_count     || stats.heart     || stats.likes || 0
   );
 
-  // Avatar – API returns direct string URL (not url_list)
   const avatarUrl = user.avatarThumb
     || user.avatarMedium
     || user.avatarLarger
@@ -320,7 +249,6 @@ function showResults(userInfo, stories) {
     profileAvatar.src = generatePlaceholderAvatar(nickname);
   }
 
-  // Stories
   storiesGrid.innerHTML = '';
   emptyState.style.display = 'none';
 
@@ -335,12 +263,10 @@ function showResults(userInfo, stories) {
     });
   }
 
-  // Show results section, hide search hero content
   document.getElementById('search-section').scrollIntoView({ behavior: 'smooth' });
   setTimeout(() => {
     resultsSection.style.display = 'block';
     document.querySelector('.hero').style.paddingBottom = '0';
-    // Scroll to results
     resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, 100);
 }
@@ -391,17 +317,25 @@ function createStoryCard(story, idx) {
     </div>
   `;
 
-  // Open modal on click (but not on download button)
   div.addEventListener('click', e => {
     if (e.target.closest('.story-download-btn')) {
       e.stopPropagation();
       downloadStory(story, idx);
     } else {
-      openModal(idx);
+      openInNewTab(story);
     }
   });
 
   return div;
+}
+
+function openInNewTab(story) {
+  const url = story.url || story.downloadUrl || story.thumb;
+  if (url) {
+    window.open(url, '_blank', 'noopener');
+  } else {
+    showToast('URL bulunamadı.', 'error');
+  }
 }
 
 function generateGradientPlaceholder() {
@@ -416,14 +350,12 @@ function generateGradientPlaceholder() {
   return canvas.toDataURL();
 }
 
-// ── Show Hero ──────────────────────────────────────────────
 function showHero() {
   resultsSection.style.display = 'none';
   document.querySelector('.hero').style.paddingBottom = '';
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ── Format Numbers ─────────────────────────────────────────
 function formatNum(n) {
   n = Number(n) || 0;
   if (n >= 1_000_000) return (n/1_000_000).toFixed(1) + 'M';
@@ -431,76 +363,8 @@ function formatNum(n) {
   return String(n);
 }
 
-// ── Loading ────────────────────────────────────────────────
 function showLoading(show) {
   loadingOverlay.style.display = show ? 'flex' : 'none';
-}
-
-// ── Modal ─────────────────────────────────────────────────
-function openModal(idx) {
-  state.modalIndex = idx;
-  storyModal.style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-  renderModal();
-}
-
-function closeModal() {
-  storyModal.style.display = 'none';
-  document.body.style.overflow = '';
-  modalVideo.pause();
-  modalVideo.src = '';
-}
-
-function navigateModal(dir) {
-  state.modalIndex = Math.max(0, Math.min(state.stories.length - 1, state.modalIndex + dir));
-  renderModal();
-}
-
-function renderModal() {
-  const story = state.stories[state.modalIndex];
-  if (!story) return;
-
-  const total = state.stories.length;
-  modalCounter.textContent = `${state.modalIndex + 1} / ${total}`;
-  modalPrev.disabled = state.modalIndex === 0;
-  modalNext.disabled = state.modalIndex === total - 1;
-
-  // Update progress
-  progressFill.style.width = `${((state.modalIndex + 1) / total) * 100}%`;
-
-  // Media
-  modalVideo.pause();
-  modalVideo.removeAttribute('src');
-  modalVideo.load();
-  if (story.type === 'video' && story.url) {
-    modalImg.style.display   = 'none';
-    modalVideo.style.display = 'block';
-    modalVideo.crossOrigin   = 'anonymous';
-    modalVideo.src           = story.url;
-    modalVideo.load();
-    modalVideo.play().catch(() => {
-      // Autoplay blocked – video controls are shown, user can press play
-    });
-  } else {
-    modalVideo.style.display = 'none';
-    modalImg.style.display   = 'block';
-    modalImg.crossOrigin     = 'anonymous';
-    modalImg.src             = story.url || story.thumb;
-    modalImg.alt             = `Hikaye ${state.modalIndex + 1}`;
-  }
-}
-
-function handleKeyboard(e) {
-  if (storyModal.style.display !== 'flex') return;
-  if (e.key === 'Escape') closeModal();
-  if (e.key === 'ArrowLeft')  navigateModal(-1);
-  if (e.key === 'ArrowRight') navigateModal(1);
-}
-
-// ── Download ───────────────────────────────────────────────
-function downloadCurrent() {
-  const story = state.stories[state.modalIndex];
-  if (story) downloadStory(story, state.modalIndex);
 }
 
 async function downloadStory(story, idx) {
@@ -516,7 +380,7 @@ async function downloadStory(story, idx) {
     const ext  = story.type === 'video' ? 'mp4' : 'jpg';
     const u = state.currentUser?.user;
     const uname = u?.uniqueId || u?.unique_id || 'story';
-    const filename = `storypeek_${uname}_${idx+1}.${ext}`;
+    const filename = `mentorwatch_${uname}_${idx+1}.${ext}`;
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = filename;
@@ -524,9 +388,8 @@ async function downloadStory(story, idx) {
     URL.revokeObjectURL(a.href);
     showToast('İndirildi! ✓', 'success');
   } catch {
-    // Fallback: open in new tab
     window.open(url, '_blank', 'noopener');
-    showToast('Yeni sekmede açıldı. Oradan kaydedebilirsiniz.', 'info');
+    showToast('Yeni sekmede açıldı.', 'info');
   }
 }
 
@@ -539,9 +402,6 @@ async function downloadAll() {
   }
 }
 
-// API Key Modal – removed (key is built-in)
-
-// ── Toast ──────────────────────────────────────────────────
 let _toastTimer;
 function showToast(msg, type = '') {
   clearTimeout(_toastTimer);
@@ -550,5 +410,4 @@ function showToast(msg, type = '') {
   _toastTimer = setTimeout(() => { toast.className = 'toast'; }, 3500);
 }
 
-// ── Start ──────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', init);
